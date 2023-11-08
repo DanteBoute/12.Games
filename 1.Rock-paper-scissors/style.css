@@ -1,3 +1,37 @@
 body{
     text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+main{
+    padding-left: 30%;
+    padding-right: 30%;
+}
+.theGameDiv{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+.rockChoice {
+    background-image: url(RPS/1.png);
+    background-repeat: no-repeat;
+
+  }
+  .scissorsChoice{
+    background-image: url(RPS/scissors.png);
+    background-repeat: no-repeat;
+
+  }
+  .paperChoice{
+    background-image: url(RPS/2.png);
+    background-repeat: no-repeat;
+  }
+
+  button{
+    background-size: 100%;
+    width: 100px;
+    height: 100px;
+    color: transparent;
+    margin: 10px;
+  }
