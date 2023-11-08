@@ -2,7 +2,7 @@
 
 // TO DO: Generate a random number between 0 and 26.
 const randomNumber = Math.floor(Math.random() * 27);
-console.log(randomNumber);
+// console.log(randomNumber);
 
 
 //TO DO: Create consts for every element I'll need below.
