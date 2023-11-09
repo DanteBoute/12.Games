@@ -26,12 +26,12 @@ header{
 
   }
   .rangedChoice{
-    background-image: url(CombatTriangle/2.png);
+    background-image: url(CombatTriangle/3.png);
     background-repeat: no-repeat;
 
   }
   .magicChoice{
-    background-image: url(CombatTriangle/3.png);
+    background-image: url(CombatTriangle/2.png);
     background-repeat: no-repeat;
   }
 
