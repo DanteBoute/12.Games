@@ -1,4 +1,4 @@
-const RPS = ['Rock', 'Paper', 'Scissors']
+const RPS = ['Melee', 'Ranged', 'Magic']
 console.log(RPS);
 
 for (let i = 0; i < RPS.length; i++){
@@ -7,9 +7,6 @@ for (let i = 0; i < RPS.length; i++){
 
 const choices = document.querySelectorAll('.choice');
 const resultDiv = document.getElementsByClassName('outcome')[0];
-// const rockChoice = document.getElementsByClassName('rockChoice')[0];
-// const paperChoice = document.getElementsByClassName('paperChoice')[0];
-// const scissorsChoice = document.getElementsByClassName('scissorsChoice')[0];
 
 function randomRPS (){
     let randomIndex = Math.floor(Math.random() * RPS.length);
@@ -22,44 +19,40 @@ function compareChoices(playerChoice, computerChoice) {
         return "It's a draw!";
     }
     else if (
-        (playerChoice === 'Rock' && computerChoice === 'Scissors') ||
-        (playerChoice === 'Paper' && computerChoice === 'Rock') ||
-        (playerChoice === 'Scissors' && computerChoice === 'Paper')
+        (playerChoice === 'Melee' && computerChoice === 'Ranged') ||
+        (playerChoice === 'Ranged' && computerChoice === 'Magic') ||
+        (playerChoice === 'Magic' && computerChoice === 'Melee')
     ) {
         return "You win!";
     } else {
-        return 'Computer wins!';
+        return 'You die! Back to Lumbridge!';
     }
+}
+
+function displayResultPopup(result) {
+    const modal = document.getElementById('myModal');
+    const resultPopup = document.getElementById('resultPopup');
+    resultPopup.innerHTML = result;
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    const modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+}
+
+function playAgain() {
+    closeModal();
+    resultDiv.innerHTML = '';
 }
 
 choices.forEach(choice => {
     choice.addEventListener('click', function() {
         const playerChoice = this.textContent;
         const computerChoice = randomRPS();
+        const result = compareChoices(playerChoice, computerChoice);
 
-        resultDiv.innerHTML = `You're choice: ${playerChoice} <br> Computer's choice: ${computerChoice} <br>
-        Result: ${compareChoices(playerChoice, computerChoice)}`;
+        displayResultPopup(`You're choice: ${playerChoice} <br> Computer's choice: ${computerChoice} <br>
+        ${result}`);
     });
 })
-// Display the contents of the buttons
-// rockChoice.addEventListener('click', function(determineResult) {
-    
-// })
-
-// paperChoice.addEventListener('click', function() {
-//     console.log(paperChoice.textContent);
-//     if (randomItem === paperChoice) {
-//         console.log('DRAW');
-//     elseif (randomItem === '')
-//     }
-// })
-
-// scissorsChoice.addEventListener('click', function() {
-//     console.log(scissorsChoice.textContent);
-// })
-
-// function determineResult () {
-//     if (randomItem === ){
-//         console.log("")
-//     }
-// }

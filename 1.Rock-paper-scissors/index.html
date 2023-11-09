@@ -9,17 +9,26 @@
 </head>
 <body>
     <header>
-        <h1>Paper, Scissors, Rock</h1>
-        <h2>Choose Rock, Scissors or Paper</h2>
+        <h1>Melee, Magic, Ranged</h1>
+        <img src="CombatTriangle/4.png" alt="Combat Triangle">
+        <h2>Choose your weapon</h2>
     </header>
     <main>
     <div class="theGameDiv">
-            <button class="choice scissorsChoice">Scissors</button>
-            <button class="choice rockChoice">Rock</button>
-            <button class="choice paperChoice">Paper</button>
+            
+            <button class="choice meleeChoice">Melee</button>
+            <button class="choice rangedChoice">Ranged</button>
+            <button class="choice magicChoice">Magic</button>
         <br>
         <div class="outcome">
         </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeModal()">&times;</span>
+              <div id="resultPopup"></div>
+              <button onclick="playAgain()"><img src="CombatTriangle/playAgainBtn.png" alt="playAgain"></button>
+            </div>
+          </div>
     </div>
 </main>
 </body>
