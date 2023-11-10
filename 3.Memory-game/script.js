@@ -1,71 +1,64 @@
-const memoryGrid = document.getElementById('memoryGrid');
-let firstCard, secondCard;
-let hasFlippedCard = false;
-let lockBoard = false;
+const tilesContainer = document.querySelector('.tiles');
+const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "teal"];
+const colorsPicklist = [...colors, ...colors];
+const tileCount = colorsPicklist.length;
 
-const colors = ['red', 'red', 'blue', 'blue', 'green', 'green', 'yellow', 'yellow', 'orange', 'orange', 'purple', 'purple', 'pink', 'pink', 'brown', 'brown'];
+// Game state
+let revealedCount = 0;
+let activeTile = null;
+let awaitingEndOfMove = false;
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
+function buildTile(color) {
+  const element = document.createElement('div');
 
-function createMemoryCard(color) {
-    const card = document.createElement('div');
-    card.classList.add('memory-card');
-    card.style.backgroundColor = color;
-    card.addEventListener('click', flipCard);
-    memoryGrid.appendChild(card);
-}
-
-function createMemoryBoard() {
-    shuffle(colors);
-    colors.forEach(color => createMemoryCard(color));
-}
-
-function flipCard() {
-    if (lockBoard) return;
-    if (this === firstCard) return;
-
-    this.classList.add('flipped');
-
-    if (!hasFlippedCard) {
-        hasFlippedCard = true;
-        firstCard = this;
-        return;
+  element.classList.add("tile");
+  element.setAttribute("data-color", color);
+  
+  element.addEventListener('click', () => {
+    if (awaitingEndOfMove) {
+      return;
     }
 
-    secondCard = this;
-    checkForMatch();
-}
+    // Reveal this color
+    element.style.backgroundColor = color;
 
-function checkForMatch() {
-    const isMatch = firstCard.style.backgroundColor === secondCard.style.backgroundColor;
-    isMatch ? disableCards() : unflipCards();
-}
+    if (!activeTile) {
+      activeTile = element;
 
-function disableCards() {
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
+      return;
+    }
+    const colorToMatch = activeTile.getAttribute("data-color");
+    if (colorToMatch === color) {
+      awaitingEndOfMove = false;
+      activeTile = null;
+      revealedCount += 2;
 
-    resetBoard();
-}
+      if (revealedCount === tileCount) {
+        alert("You win! Refresh to play again.");
+      }
+      return;
+    }
+    
+    awaitingEndOfMove = true;
 
-function unflipCards() {
-    lockBoard = true;
     setTimeout(() => {
-        firstCard.classList.remove('flipped');
-        secondCard.classList.remove('flipped');
+    element.style.backgroundColor = null;
+    activeTile.style.backgroundColor = null;
 
-        resetBoard();
+    awaitingEndOfMove = false;
+    activeTile = null;
     }, 1000);
+  });
+  
+  return element;
 }
 
-function resetBoard() {
-    [hasFlippedCard, lockBoard] = [false, false];
-    [firstCard, secondCard] = [null, null];
-}
+// Build up tiles
+for(let i =0; i < tileCount; i++) {
+  const randomIndex = Math.floor(Math.random() * colorsPicklist.length);
+  const color = colorsPicklist[randomIndex];
+  const tile = buildTile(color);
 
-createMemoryBoard();
+  colorsPicklist.splice(randomIndex, 1);
+  tilesContainer.appendChild(tile);
+}

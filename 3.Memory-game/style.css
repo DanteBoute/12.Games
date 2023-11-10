@@ -1,29 +1,20 @@
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    background-color: #333;
     margin: 0;
 }
 
-.memory-grid {
+.tiles {
+    margin: 48px auto;
+    width: max-content;
     display: grid;
-    grid-template-columns: repeat(8, 80px);
-    grid-template-rows: repeat(8, 80px);
-    gap: 5px;
+    grid-template-columns: repeat(4, 100px);
+    gap: 16px;
 }
 
-.memory-card {
-    width: 80px;
-    height: 80px;
-    background-color: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+.tile {
+    width: 100px;
+    height: 100px;
+    background: #111;
+    border: 5px solid color #444;
     cursor: pointer;
-}
-
-.memory-card.flipped {
-    background-color: #fff;
 }

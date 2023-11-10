@@ -3,16 +3,28 @@ const ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'K
 
 const deck = [];
 
+
 for (const suit of suits) {
   for (const rank of ranks) {
-    let value = parseInt(rank) || (rank === 'Ace' ? 1 : 10); // Assign values to cards
+    let value = 0;
+    if (rank === 'Jack' || rank === 'Queen' || rank === 'King'){
+        value = 10;
+    }
+    else if(rank === 'Ace'){
+        value = 11;
+    }
+    else {
+        value = parseInt(rank);
+    }
     deck.push({ rank, suit, value });
   }
 }
 
 function getRandomCard() {
-    const randomIndex = Math.floor(Math.random() * deck.length);
-    return deck[randomIndex];
+    const randomIndex = Math.floor(Math.random() * (deck.length - 1));
+    console.log(randomIndex)
+    console.log(deck.splice(randomIndex, 1))
+    return deck.splice(randomIndex, 1)[0];
 }
 const drawButton = document.getElementById('drawCardBtn');
 const stopButton = document.getElementById('stopBtn');
@@ -23,6 +35,7 @@ const playerTotalValueSpan = document.getElementById('playerTotalValue');
 const dealerTotalValueSpan = document.getElementById('dealerTotalValue');
 const playerOutcome = document.getElementById('playerOutcome');
 const dealerOutcome = document.getElementById('dealerOutcome');
+const gameResult = document.getElementById('gameResult');
 
 let playerTotalValue = 0;
 let dealerTotalValue = 0;
@@ -76,9 +89,16 @@ stopButton.addEventListener('click', function() {
         // Check if dealer is burnt or should stop drawing
         if (dealerTotalValue > 21 || dealerTotalValue >= 17) {
             dealerOutcome.textContent = "Dealer is done drawing.";
-            endGame();
+            
         }
     }
+    if (dealerTotalValue >= playerTotalValue || dealerTotalValue <= 21){
+        gameResult.textContent = "Dealer has won."
+    }
+    else {
+        gameResult.textContent = "You win!"
+    }
+    endGame();
 });
 
 function endGame() {
